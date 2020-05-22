@@ -2,7 +2,7 @@ import React from 'react';
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 import {Button} from 'reactstrap';
 import Registration from './Registration';
-import LogIn from './LogIn';
+import LogIn from './Login';
 
 
 import '../App.css';

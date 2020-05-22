@@ -3,7 +3,7 @@ import {BrowserRouter as Route, Link, Switch} from 'react-router-dom';
 import {Button, Form, FormGroup, Input, Label, InputGroup, InputGroupAddon, InputGroupText, FormText} from 'reactstrap';
 import '../App.css';
 import Dashboard from './Dashboard';
-import LogIn from './LogIn';
+import LogIn from './Login';
 
 function Registration() {
   return (

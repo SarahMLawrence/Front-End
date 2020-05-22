@@ -1,57 +1,63 @@
+//============//
+//  IMPORTS   //
+//============//
 import React from 'react';
-import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom';
-import Dashboard from './Dashboard';
-import Registration from './Registration';
-import { Button , Form, FormGroup, Label, Input } from 'reactstrap';
-import '../App.css';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
-function LogIn () {
-  return (
-    <Router>
-    <div className="App">
-      <header className="App-header">
-       
+//====================//
+//  CLASS COMPONENT   //
+//====================//
+class Login extends React.Component {
+    constructor(){
+        super();
+        this.state = {
+            credentials: {
+                username: "",
+                password: "",
+            },
+        };
+    }
 
-      <Form inline>
-      <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-        <Label for="exampleEmail" className="mr-sm-2">Log in with email address</Label>
-        <Input type="email" name="email" id="exampleEmail" placeholder="enter email" />
-      </FormGroup>
-      <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-        <Label for="examplePassword" className="mr-sm-2">Password</Label>
-        <Input type="password" name="password" id="examplePassword" placeholder="enter password" />
-      </FormGroup>
-      <Button>Submit</Button>
-    </Form>
- 
+    //==============================================//
+    //  Keeping track of state for the input and    //
+    //  Updating the value on chage                 //
+    //==============================================//
+    handleChange = (e) => {
+        this.setState({
+            credentials: {
+                ...this.state.credentials,
+                [e.target.name]: e.target.value,
+            },
+        });
+        console.log(this.state.credentials);
+    };
+
+    //================//
+    //  POST REQUEST  //
+    //================//
+    login = (e) => {
+        e.preventDefault();
+        axiosWithAuth()
+        .post("/api/auth/login", this.state.credentials)
+        .then((res) => {
+            window.localStorage.setItem('token', res.data.payload);
+        })
+        .catch((err) => {
+            console.log('The error is ', err);
+            alert('INVALID: YOU CANNOT SIGN IN ');
+        });
+    };
+
+    render() {
+        return (
+            <div>
+                <form>
+                    <input/>
+                </form>
+            </div>
+        )
+    }
 
 
-       <Button color outline="primary"> <Link to="/registration">Don't have an account? Sign up</Link> </Button>
-       
-          
-          <Switch>
-            <Route exact path="/">
-              <Dashboard />
-            </Route>    
-            <Route path="/registration">
-              <Registration />
-            </Route>
-        </Switch>
-
-        {/* <span> Still not sure?  While you're here, why not &nbsp; 
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          learn this is the Log in page
-        </a>
-         </span> */}
-      </header>
-    </div>
-    </Router>
-  );
 }
-
-export default LogIn;
+export default Login;
