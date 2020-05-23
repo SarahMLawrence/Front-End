@@ -8,7 +8,7 @@ import { Route, Redirect } from 'react-router-dom';
 //  COMPONENT  //
 //=============//
 const PrivateRoute = ({ component: Component, ...rest }) => {
-    const token = window.localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     return(
         <Route
         {...rest}
@@ -16,7 +16,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
             if (token) {
                 return <Component {...props}/>
             } else {
-                return <Redirect to='/login' />
+                return <Redirect to='/' />
             }
         }}
         />

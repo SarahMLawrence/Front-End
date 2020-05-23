@@ -3,9 +3,12 @@
 //=================//
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
-import Login from './components/Login';
-import Registration from './components/Registration';
 import PrivateRoute from './components/PrivateRoute';
+
+import Login from './components/Login';
+import Home from './components/Home';
+// import Registration from './components/Registration';
+import MainHeader from './components/MainHeader';
 import {Button} from 'reactstrap';
 import './App.css';
 
@@ -23,23 +26,19 @@ class App extends React.Component{
     return(
       <Router>
       <div className="myApp">
-        <div className="App">
-        <div className="nav">
-       
+        <MainHeader />
+      <Route path="/" component={Login} />
+{/*        
         <Button outline color="primary"><Link to="/login">Log in</Link></Button>
         <Button outline color="info"><Link to="/registration">Sign Up</Link></Button>
-        <Route path="/" component={Login}/>
+        <Route path="/" component={Login}/> */}
         </div>
         <div>
           <Switch>
-            <PrivateRoute
-            exact path="/post-page"
-            // component={}
-            />
+           <PrivateRoute path="/home" component={Home}/>
           </Switch>
         </div>
-        </div>
-        </div>
+  
  
       </Router>
     );

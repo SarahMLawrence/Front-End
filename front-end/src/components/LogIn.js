@@ -1,63 +1,83 @@
-//============//
-//  IMPORTS   //
-//============//
-import React from 'react';
-import { axiosWithAuth } from '../utils/axiosWithAuth';
+// //==========//
+// //  IMPORTS //
+// //==========//
+import React, { useState } from "react";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { useHistory } from "react-router-dom";
 
-//====================//
-//  CLASS COMPONENT   //
-//====================//
-class Login extends React.Component {
-    constructor(){
-        super();
-        this.state = {
-            credentials: {
-                username: "",
-                password: "",
-            },
-        };
-    }
+import { Form, FormGroup, Input, Button } from "reactstrap";
 
-    //==============================================//
-    //  Keeping track of state for the input and    //
-    //  Updating the value on chage                 //
-    //==============================================//
-    handleChange = (e) => {
-        this.setState({
-            credentials: {
-                ...this.state.credentials,
-                [e.target.name]: e.target.value,
-            },
-        });
-        console.log(this.state.credentials);
-    };
+const Login = () => {
+  const [userInfo, setUserInfo] = useState({
+    username: "",
+    password: "",
+  });
+  const [isFetching, setIsFetching] = useState(false);
+  const [error, setError] = useState("");
 
-    //================//
-    //  POST REQUEST  //
-    //================//
-    login = (e) => {
-        e.preventDefault();
-        axiosWithAuth()
-        .post("/api/auth/login", this.state.credentials)
-        .then((res) => {
-            window.localStorage.setItem('token', res.data.payload);
-        })
-        .catch((err) => {
-            console.log('The error is ', err);
-            alert('INVALID: YOU CANNOT SIGN IN ');
-        });
-    };
+  const handleChanges = (e) => {
+    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+    console.log("New credentials from Login", userInfo);
+  };
 
-    render() {
-        return (
-            <div>
-                <form>
-                    <input/>
-                </form>
-            </div>
-        )
-    }
+  let history = useHistory();
+  const login = (e) => {
+    e.preventDefault();
+    setIsFetching(true);
 
+    axiosWithAuth()
+      .post("/auth/login", userInfo)
+      .then((res) => {
+        console.log(res);
+        if (res.data.token) {
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("username", res.data.user.username);
+          localStorage.setItem("password", userInfo.password);
+          localStorage.setItem("password", userInfo.password);
+          history.push("/");
+        } else {
+          setError("Your login was unsuccessfull");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
 
-}
+  return (
+    <div>
+      <div>
+        <div>
+          <div>
+            <h1>Login</h1>
+            <Form inline onSubmit={login}>
+              <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                <Input
+                  type="text"
+                  name="username"
+                  placeholder="USERNAME"
+                  value={userInfo.username}
+                  onChange={handleChanges}
+                  required
+                />
+              </FormGroup>
+              <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                <Input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={userInfo.password}
+                  onChange={handleChanges}
+                  required
+                />
+              </FormGroup>
+              <Button>Log in</Button>
+            </Form>
+            <p>{isFetching ? "Loading..." : null}</p>
+            <p>{error ? error : null}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default Login;

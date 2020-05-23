@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 import {Button} from 'reactstrap';
-import Registration from './Registration';
+import Registration from './Register';
 import LogIn from './Login';
 
 
