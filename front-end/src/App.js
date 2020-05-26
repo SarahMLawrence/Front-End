@@ -1,51 +1,99 @@
-//=================//
-//    IMPORTS      //
-//=================//
-import React from 'react';
-import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
-import PrivateRoute from './components/PrivateRoute';
+// //=================//
+// //    IMPORTS      //
+// //=================//
+// import React from "react";
+// import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+// import PrivateRoute from "./components/PrivateRoute";
 
-import Login from './components/Login';
-import Home from './components/Home';
-// import Registration from './components/Registration';
-import MainHeader from './components/MainHeader';
-import {Button} from 'reactstrap';
-import './App.css';
+// import Login from "./components/Login";
+// // import Registration from './components/Registration';
+// import MainHeader from "./components/MainHeader";
+// import { Button } from "reactstrap";
+// import "./App.css";
 
-//==============================//
-//    CLASS COMPONENT           //
-//==============================//
+// //==============================//
+// //    CLASS COMPONENT           //
+// //==============================//
 
-class App extends React.Component{
-  constructor(){
-    super();
-    this.state = { credentials: {} };
-  }
+// class App extends React.Component {
+//   constructor() {
+//     super();
+//     this.state = { credentials: {} };
+//   }
 
-  render(){
-    return(
-      <Router>
-      <div className="myApp">
-        <MainHeader />
-      <Route path="/" component={Login} />
-{/*        
-        <Button outline color="primary"><Link to="/login">Log in</Link></Button>
-        <Button outline color="info"><Link to="/registration">Sign Up</Link></Button>
-        <Route path="/" component={Login}/> */}
-        </div>
-        <div>
+//   render() {
+//     return (
+//       <Router>
+//         <div className="myApp">
+//           <MainHeader />
+//           <Route path="/" component={Login} />
+//           {/*        
+//         <Button outline color="primary"><Link to="/login">Log in</Link></Button>
+//         <Button outline color="info"><Link to="/registration">Sign Up</Link></Button>
+//         <Route path="/" component={Login}/> */}
+//         </div>
+//       </Router>
+//     );
+//   }
+// }
+
+// export default App;
+
+import React from "react";
+
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
+import Dashboard from "./components/Dashboard";
+
+import Login from "./components/Login";
+
+import Registration from "./components/Registration";
+
+import LandingPage from "./components/LandingPage";
+
+import "./App.css";
+
+import logo from "./logo.jpg";
+
+import { Jumbotron } from "reactstrap";
+
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <header className="App-header">
+          <Jumbotron>
+            <Link to="/dashboard">
+              <img src={logo} className="App" alt="logo" />
+            </Link>
+
+            <h1>
+              {" "}
+              <br /> Ready to build a better you?
+            </h1>
+          </Jumbotron>
+
           <Switch>
-           <PrivateRoute path="/home" component={Home}/>
+            <Route path="/userlogin">
+              <Login />
+            </Route>
+
+            <Route path="/registration">
+              <Registration />
+            </Route>
+
+            <Route path="/dashboard">
+              <Dashboard />
+            </Route>
+
+            <Route path="/landingpage">
+              <LandingPage />
+            </Route>
           </Switch>
-        </div>
-  
- 
-      </Router>
-    );
-  }
+        </header>
+      </div>
+    </Router>
+  );
 }
-
-
-
 
 export default App;
