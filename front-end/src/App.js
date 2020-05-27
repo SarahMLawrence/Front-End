@@ -47,11 +47,12 @@ import Dashboard from "./components/Dashboard";
 
 import Login from "./components/Login";
 
-import Registration from "./components/Registration";
+// import Registration from "./components/Registration";
+import Register from "./components/Register";
 
 import LandingPage from "./components/LandingPage";
 
-import PostPage from "./components/Postpage";
+import PostPage from "./components/PostPage";
 
 import "./App.css";
 
@@ -77,7 +78,7 @@ function App() {
           </Jumbotron>
 
           
-          <Link to="/postcard">
+          <Link to="/postpage">
               <h3>See Posts</h3>
               </Link>
 
@@ -87,7 +88,8 @@ function App() {
             </Route>
 
             <Route path="/registration">
-              <Registration />
+              {/* <Registration /> */}
+              <Register />
             </Route>
 
             <Route path="/dashboard">
@@ -100,7 +102,7 @@ function App() {
 
             <PrivateRoute
             exact 
-            path="/postcard"
+            path="/postpage"
             component={PostPage}
              />
           </Switch>

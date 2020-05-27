@@ -3,7 +3,7 @@
 //============//
 import React, { useState, useEffect } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
-
+import PostList from '../components/PostList';
 //============//
 //  COMPONENT //
 //============//
@@ -12,7 +12,7 @@ const PostPage = (props) => {
 
     useEffect(() => {
         axiosWithAuth()
-        .get('/api/posts')
+        .get('/posts')
         .then((res) => {
             setPostList(res.data);
         })
@@ -24,6 +24,7 @@ const PostPage = (props) => {
 
     return (
         <>
+        <PostList props={props} posts={postList} updatePost={setPostList}/>
         </>
     );
 };
