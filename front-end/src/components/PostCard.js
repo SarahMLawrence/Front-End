@@ -1,13 +1,8 @@
 import React from "react";
-
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
 import Dashboard from "./Dashboard";
-
 import LogIn from "./Login";
-
 import Registration from "./Registration";
-
 import "../App.css";
 
 import {

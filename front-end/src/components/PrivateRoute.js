@@ -8,7 +8,8 @@ import { Route, Redirect } from 'react-router-dom';
 //  COMPONENT  //
 //=============//
 const PrivateRoute = ({ component: Component, ...rest }) => {
-    const token = sessionStorage.getItem('token');
+    // const token = sessionStorage.getItem('token');
+    const token = window.localStorage.getItem('token');
     return(
         <Route
         {...rest}

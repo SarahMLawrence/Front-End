@@ -51,11 +51,14 @@ import Registration from "./components/Registration";
 
 import LandingPage from "./components/LandingPage";
 
+import PostPage from "./components/Postpage";
+
 import "./App.css";
 
 import logo from "./logo.jpg";
 
 import { Jumbotron } from "reactstrap";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
@@ -73,6 +76,11 @@ function App() {
             </h1>
           </Jumbotron>
 
+          
+          <Link to="/postcard">
+              <h3>See Posts</h3>
+              </Link>
+
           <Switch>
             <Route path="/userlogin">
               <Login />
@@ -89,6 +97,12 @@ function App() {
             <Route path="/landingpage">
               <LandingPage />
             </Route>
+
+            <PrivateRoute
+            exact 
+            path="/postcard"
+            component={PostPage}
+             />
           </Switch>
         </header>
       </div>

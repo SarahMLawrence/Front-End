@@ -1,7 +1,8 @@
+//============//
+//  IMPORTS   //
+//============//
 import React, { useState, useEffect } from "react";
-
 import { BrowserRouter as Route, Link, Switch } from "react-router-dom";
-
 import {
   Button,
   Form,
@@ -13,18 +14,13 @@ import {
   InputGroupText,
   Alert,
 } from "reactstrap";
-
 import "../App.css";
-
 import Dashboard from "./Dashboard";
-
+import LandingPage from "./LandingPage";
 import LogIn from "./Login";
-
 import axios from "axios";
-
 import * as yup from "yup";
 
-import LandingPage from "./LandingPage";
 
 let formSchema = yup.object().shape({
   fullname: yup
@@ -59,13 +55,9 @@ let formSchema = yup.object().shape({
 function Registration() {
   const [fdata, setFData] = useState({
     fullname: "",
-
     username: "",
-
     email: "",
-
     password: "",
-
     passwordConfirmation: "",
   });
 
@@ -79,13 +71,9 @@ function Registration() {
 
   const [errorState, setErrorState] = useState({
     fullname: "",
-
     username: "",
-
     email: "",
-
     password: "",
-
     passwordConfirmation: "",
   });
 

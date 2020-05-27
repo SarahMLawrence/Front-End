@@ -1,6 +1,6 @@
-// //==========//
-// //  IMPORTS //
-// //==========//
+//==========//
+//  IMPORTS //
+//==========//
 import React, { useState } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { useHistory } from "react-router-dom";
@@ -31,7 +31,7 @@ const Login = () => {
         console.log(res);
         if (res.data.token) {
           localStorage.setItem("token", res.data.token);
-          localStorage.setItem("username", res.data.user.username);
+          localStorage.setItem("username", res.data.userInfo.username);
           localStorage.setItem("password", userInfo.password);
           localStorage.setItem("password", userInfo.password);
           history.push("/");
@@ -69,7 +69,7 @@ const Login = () => {
                   required
                 />
               </FormGroup>
-              <Button>Log in</Button>
+              <Button >Log in</Button>
             </Form>
             <p>{isFetching ? "Loading..." : null}</p>
             <p>{error ? error : null}</p>
