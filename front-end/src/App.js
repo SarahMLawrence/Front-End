@@ -127,6 +127,8 @@ function App() {
                   <h3>See Posts</h3>
                 </Link>
               </nav>
+
+              <SlideShow />
               <div className="forms">
               <Route path="/userlogin" component={Login} />
             <Route path="/register" component={Register} />
@@ -138,7 +140,7 @@ function App() {
 
           
           </div>
-          <SlideShow />
+         
           <div>
             <Switch>
               <PrivateRoute exact path="/postpage" component={PostPage} />
