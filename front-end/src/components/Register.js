@@ -1,203 +1,105 @@
 //============//
 //  IMPORTS   //
 //============//
-import React, { useState, useEffect } from "react";
-import { useForm } from 'react-hook-form';
-import { BrowserRouter as Route, Link, Switch } from "react-router-dom";
-import {
-  Button,
-  Form,
-  FormGroup,
-  Input,
-  Label,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  Alert,
-} from "reactstrap";
-import "../App.css";
-import Dashboard from "./Dashboard";
-import LandingPage from "./LandingPage";
-import LogIn from "./Login";
-import axios from "axios";
+
+import React from "react";
+// import { Form, FormGroup, Input, Button } from "reactstrap";
+import { Form, withFormik, Field } from "formik";
+
+import { Button } from "reactstrap";
+
 import * as yup from "yup";
+
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-
-const onSubmit = data => {
-
-  alert(JSON.stringify(data));
-
-};
-
-const Register = (props) => {
-  const [greyButton, setGreyButton] = useState(true);
-
-  const { register, handleSubmit, errors } = useForm({});
-
-  const [ newUser, setNewUser ] = useState({
-    username: "",
-    password: "",
-    email: "",
-    phone_number: ""
-  });
-
-  //
-  //  HANDLECHANGES
-  const handleChanges = e => {
-    setNewUser({
-      ...newUser,
-      [e.target.name]: e.target.value
-    });
-  }
-
-  const registerUser = (e) => {
-    axiosWithAuth()
-      .post("/register", newUser)
-      .then((res) => {
-        console.log("register response: ", res);
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("id", JSON.stringify(res.data.id));
-
-        setTimeout(() => props.history.push("/login"), 2000);
-
-        let welcomeMessage = res.data.message;
-
-         console.log('welcome message', welcomeMessage)
-
-
-
-      })
-
-      .catch(err => console.log(err));
-    
-  };
-
+function Register({ errors, touched, status }) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <Form onSubmit={onSubmit}>
-          <InputGroup>
-            <InputGroupAddon addonType="prepend">
-              <Label for="fullname">
-                <InputGroupText>Full Name</InputGroupText>
-              </Label>
-            </InputGroupAddon>
+    <div>
+      <div className="register" style={{padding:'2%'}}>
+        <h2 className="regTitle">Welcome new user!</h2>
+        <Form className="registerForm" >
+          {/* <FormGroup className="mb-2 mr-sm-2 mb-sm-0"  style={{padding: '1%'}}> */}
+          <Field
+          style={{margin:'2%', borderRadius: '4px', borderColor: 'silver', height: '2.5rem'}}
+            key="username"
+            type="text"
+            name="username"
+            placeholder="USERNAME"
+          ></Field>
+          {touched.username && errors.username && <p>{errors.username}</p>}
+          {/* </FormGroup>
+              <FormGroup className="mb-2 mr-sm-2 mb-sm-0"  style={{padding: '1%'}}> */}
+          <Field
+          style={{margin:'2%', borderRadius: '4px', borderColor: 'silver', height:'2.5rem'}}
+            key="password"
+            type="password"
+            name="password"
+            placeholder="PASSWORD"
+            className="signUpPassword"
+          ></Field>
 
-            <Input
-              id="fullname"
-              name="fullname"
-              placeholder="first and last name"
-              // value={fdata.fullname}
-              onChange={handleChanges}
-            />
+          {touched.password && errors.password && <p>{errors.password}</p>}
+          {/* </FormGroup> */}
+          {/* <FormGroup className="mb-2 mr-sm-2 mb-sm-0"  style={{padding: '1%'}}> */}
 
-            {newUser.fullname.length > 0 ? (
-              <Alert color="danger">{newUser.fullname}</Alert>
-            ) : null}
-          </InputGroup>
+          <Field
+          style={{margin:'2%', borderRadius: '4px', borderColor: 'silver', height: '2.5rem'}}
+            key="confirmPassword"
+            type="password"
+            name="confirmPassword"
+            placeholder="RE-TYPE PASSWORD"
+            className="signUpConfirmPassword"
+          ></Field>
 
-          <br />
-
-          <InputGroup>
-            <InputGroupAddon addonType="prepend">
-              <Label for="username">
-                <InputGroupText>Username</InputGroupText>
-              </Label>
-            </InputGroupAddon>
-
-            <Input
-              id="username"
-              name="username"
-              placeholder="choose your username"
-              // value={fdata.username}
-              onChange={handleChanges}
-            />
-
-            {newUser.username.length > 0 ? (
-              <Alert color="danger">{newUser.username}</Alert>
-            ) : null}
-          </InputGroup>
-
-          <br />
-
-          <FormGroup>
-            <Label for="email">Email</Label>
-
-            <Input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="email address"
-              // value={fdata.email}
-              onChange={handleChanges}
-            />
-
-            {newUser.email.length > 0 ? (
-              <Alert color="danger">{newUser.email}</Alert>
-            ) : null}
-          </FormGroup>
-
-          <FormGroup>
-            <Label for="password">Password</Label>
-
-            <Input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="create password"
-              // value={fdata.password}
-              onChange={handleChanges}
-            />
-
-{newUser.password.length > 0 ? (
-              <Alert color="danger">{newUser.password}</Alert>
-            ) : null}
-          </FormGroup>
-
-          <FormGroup>
-            <Label for="passwordConfirmation">Password confirmation</Label>
-
-            <Input
-              type="passwordConfirmation"
-              id="passwordConfirmation"
-              name="passwordConfirmation"
-              placeholder="confirm password"
-              // value={fdata.passwordConfirmation}
-              onChange={handleChanges}
-            />
-
-            {newUser.passwordConfirmation.length > 0 ? (
-              <Alert color="danger">{newUser.passwordConfirmation}</Alert>
-            ) : null}
-          </FormGroup>
-
-          <Link to="/landingpage">
-            <Button disabled={greyButton}>Submit</Button>
-          </Link>
+          {touched.password && errors.password && <p>{errors.password}</p>}
+          {/* </FormGroup> */}
+          <Button type="submit" className="btn" style={{padding:'5%'}}>
+            Sign Up Now
+          </Button>
         </Form>
-
-        <Switch>
-          <Route path="/dashboard">
-            <Dashboard />
-          </Route>
-
-          <Route path="/userlogin">
-            <LogIn />
-          </Route>
-
-          <Route path="/landingpage">
-            <LandingPage />
-          </Route>
-        </Switch>
-
-        <Link to="/userlogin">
-          <p>Already have an account? Click here to Sign in.</p>
-        </Link>
-      </header>
+      </div>
     </div>
   );
-
 }
+const formikHOC = withFormik({
+  mapPropsToValues({ username, password, confirmPassword }) {
+    return {
+      username: username || "",
+      password: password || "",
+      confirmPassword: confirmPassword || "",
+    };
+  },
+  validationSchema: yup.object().shape({
+    // username: yup.string()
+    // .username("Username not valud")
+    // .required("Username is required"),
+    password: yup
+      .string()
+      .min(6, "Password must be 6 characters or longer")
+      .required("Password is required"),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref("password"), null], "Passwords must match")
+      .required("Password is required"),
+  }),
+  handleSubmit(values, { setStatus, props }) {
+    const loginInfo = {
+      username: values.username,
+      password: values.username,
+    };
 
-export default Register;
+    axiosWithAuth()
+      .post("/auth/register", loginInfo)
+      .then((res) => {
+        console.log(res.data);
+        localStorage.setItem("token", res.data.password);
+      })
+
+      .catch((err) => {
+        console.log("SignUp Failed", err);
+      });
+    props.history.push("/postpage");
+  },
+})(Register);
+
+export default formikHOC;

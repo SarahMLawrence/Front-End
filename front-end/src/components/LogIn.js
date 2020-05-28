@@ -44,13 +44,15 @@ const Login = () => {
 
   return (
     <div>
-      <div>
-        <div>
-          <div>
-            <h1>Login</h1>
-            <Form inline onSubmit={login}>
-              <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+      <div className="login">
+        <div className="form">
+          <div className="FormForm">
+            
+            <Form inline onSubmit={login} className="loginForm">
+           <h2>Login </h2>
+              <FormGroup className="mb-2 mr-sm-2 mb-sm-0"  style={{padding: '1%'}}>
                 <Input
+               
                   type="text"
                   name="username"
                   placeholder="USERNAME"
@@ -59,8 +61,9 @@ const Login = () => {
                   required
                 />
               </FormGroup>
-              <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+              <FormGroup className="mb-2 mr-sm-2 mb-sm-0"  style={{padding: '1%'}}>
                 <Input
+                className="input"
                   type="password"
                   name="password"
                   placeholder="Password"
@@ -69,7 +72,7 @@ const Login = () => {
                   required
                 />
               </FormGroup>
-              <Button >Log in</Button>
+              <Button  className="btn" style={{padding: '%'}}>Log in</Button>
             </Form>
             <p>{isFetching ? "Loading..." : null}</p>
             <p>{error ? error : null}</p>

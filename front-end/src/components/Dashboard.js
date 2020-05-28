@@ -3,8 +3,8 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import { Jumbotron, Container, Row, Col } from "reactstrap";
-
-import Registration from "./Registration";
+import Register from './Register';
+// import Registration from "./Registration";
 
 import LogIn from "./Login";
 
@@ -25,7 +25,7 @@ function Dashboard() {
 
               <Col>
                 <Jumbotron>
-                  <Link to="/registration">Register</Link>
+                  <Link to="/register">Register</Link>
                 </Jumbotron>
               </Col>
             </Row>
@@ -36,8 +36,8 @@ function Dashboard() {
               <LogIn />
             </Route>
 
-            <Route path="/registration">
-              <Registration />
+            <Route path="/register">
+              <Register/>
             </Route>
           </Switch>
         </header>

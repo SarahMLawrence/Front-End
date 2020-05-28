@@ -1,262 +1,262 @@
-//============//
-//  IMPORTS   //
-//============//
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Route, Link, Switch } from "react-router-dom";
-import {
-  Button,
-  Form,
-  FormGroup,
-  Input,
-  Label,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  Alert,
-} from "reactstrap";
-import "../App.css";
-import Dashboard from "./Dashboard";
-import LandingPage from "./LandingPage";
-import LogIn from "./Login";
-import axios from "axios";
-import * as yup from "yup";
+// //============//
+// //  IMPORTS   //
+// //============//
+// import React, { useState, useEffect } from "react";
+// import { BrowserRouter as Route, Link, Switch } from "react-router-dom";
+// import {
+//   Button,
+//   Form,
+//   FormGroup,
+//   Input,
+//   Label,
+//   InputGroup,
+//   InputGroupAddon,
+//   InputGroupText,
+//   Alert,
+// } from "reactstrap";
+// import "../App.css";
+// import Dashboard from "./Dashboard";
+// import LandingPage from "./LandingPage";
+// import LogIn from "./Login";
+// import axios from "axios";
+// import * as yup from "yup";
 
 
-let formSchema = yup.object().shape({
-  fullname: yup
-    .string()
-    .min(2, "name must be more than 2 characters")
-    .required("name is required to continue"),
+// let formSchema = yup.object().shape({
+//   fullname: yup
+//     .string()
+//     .min(2, "name must be more than 2 characters")
+//     .required("name is required to continue"),
 
-  username: yup
-    .string()
-    .min(6, "username must contain at least 6 characters")
-    .required("username is required to continue"),
+//   username: yup
+//     .string()
+//     .min(6, "username must contain at least 6 characters")
+//     .required("username is required to continue"),
 
-  email: yup
-    .string()
-    .email("valid email is required to continue")
-    .required("email is required"),
+//   email: yup
+//     .string()
+//     .email("valid email is required to continue")
+//     .required("email is required"),
 
-  password: yup
-    .string()
-    .min(8, "password must contain 8 charaters")
-    .required("must create a password to continue"),
+//   password: yup
+//     .string()
+//     .min(8, "password must contain 8 charaters")
+//     .required("must create a password to continue"),
 
-  passwordConfirmation: yup
-    .string()
-    .oneOf(
-      [yup.ref("password"), null],
-      "when all forms are completed, please click grey submit button"
-    )
-    .required("please confirm"),
-});
+//   passwordConfirmation: yup
+//     .string()
+//     .oneOf(
+//       [yup.ref("password"), null],
+//       "when all forms are completed, please click grey submit button"
+//     )
+//     .required("please confirm"),
+// });
 
-function Registration() {
-  const [fdata, setFData] = useState({
-    fullname: "",
-    username: "",
-    email: "",
-    password: "",
-    passwordConfirmation: "",
-  });
+// function Registration() {
+//   const [fdata, setFData] = useState({
+//     fullname: "",
+//     username: "",
+//     email: "",
+//     password: "",
+//     passwordConfirmation: "",
+//   });
 
-  const [greyButton, setGreyButton] = useState(true);
+//   const [greyButton, setGreyButton] = useState(true);
 
-  useEffect(() => {
-    formSchema.isValid(fdata).then((valid) => {
-      setGreyButton(!valid);
-    });
-  }, [fdata]);
+//   useEffect(() => {
+//     formSchema.isValid(fdata).then((valid) => {
+//       setGreyButton(!valid);
+//     });
+//   }, [fdata]);
 
-  const [errorState, setErrorState] = useState({
-    fullname: "",
-    username: "",
-    email: "",
-    password: "",
-    passwordConfirmation: "",
-  });
+//   const [errorState, setErrorState] = useState({
+//     fullname: "",
+//     username: "",
+//     email: "",
+//     password: "",
+//     passwordConfirmation: "",
+//   });
 
-  const validate = (event) => {
-    yup
-      .reach(formSchema, event.target.name)
+//   const validate = (event) => {
+//     yup
+//       .reach(formSchema, event.target.name)
 
-      .validate(event.target.value)
+//       .validate(event.target.value)
 
-      .then((valid) => {
-        setErrorState({
-          ...errorState,
+//       .then((valid) => {
+//         setErrorState({
+//           ...errorState,
 
-          [event.target.name]: "",
-        });
-      })
+//           [event.target.name]: "",
+//         });
+//       })
 
-      .catch((err) => {
-        setErrorState({
-          ...errorState,
-          [event.target.name]: err.errors[0],
-        });
-      });
-  };
+//       .catch((err) => {
+//         setErrorState({
+//           ...errorState,
+//           [event.target.name]: err.errors[0],
+//         });
+//       });
+//   };
 
-  const onSubmit = (event) => {
-    event.preventDefault();
+//   const onSubmit = (event) => {
+//     event.preventDefault();
 
-    event.persist();
+//     event.persist();
 
-    validate(event);
+//     validate(event);
 
-    axios
+//     axios
 
-      .post("https://reqres.in/api/users", fdata)
+//       .post("https://reqres.in/api/users", fdata)
 
-      .then((response) =>
-        console.log(
-          `registration submitted- username: ${fdata.username} has joined How To:`,
-          response
-        )
-      )
+//       .then((response) =>
+//         console.log(
+//           `registration submitted- username: ${fdata.username} has joined How To:`,
+//           response
+//         )
+//       )
 
-      .catch((err) =>
-        console.log("Error submitted registration for How To:", err)
-      );
-  };
+//       .catch((err) =>
+//         console.log("Error submitted registration for How To:", err)
+//       );
+//   };
 
-  const onChange = (event) => {
-    event.persist();
+//   const onChange = (event) => {
+//     event.persist();
 
-    validate(event);
+//     validate(event);
 
-    setFData({
-      ...fdata,
-      [event.target.name]: event.target.value,
-    });
-  };
+//     setFData({
+//       ...fdata,
+//       [event.target.name]: event.target.value,
+//     });
+//   };
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <Form onSubmit={onSubmit}>
-          <InputGroup>
-            <InputGroupAddon addonType="prepend">
-              <Label for="fullname">
-                <InputGroupText>Full Name</InputGroupText>
-              </Label>
-            </InputGroupAddon>
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <Form onSubmit={onSubmit}>
+//           <InputGroup>
+//             <InputGroupAddon addonType="prepend">
+//               <Label for="fullname">
+//                 <InputGroupText>Full Name</InputGroupText>
+//               </Label>
+//             </InputGroupAddon>
 
-            <Input
-              id="fullname"
-              name="fullname"
-              placeholder="first and last name"
-              value={fdata.fullname}
-              onChange={onChange}
-            />
+//             <Input
+//               id="fullname"
+//               name="fullname"
+//               placeholder="first and last name"
+//               value={fdata.fullname}
+//               onChange={onChange}
+//             />
 
-            {errorState.fullname.length > 0 ? (
-              <Alert color="danger">{errorState.fullname}</Alert>
-            ) : null}
-          </InputGroup>
+//             {errorState.fullname.length > 0 ? (
+//               <Alert color="danger">{errorState.fullname}</Alert>
+//             ) : null}
+//           </InputGroup>
 
-          <br />
+//           <br />
 
-          <InputGroup>
-            <InputGroupAddon addonType="prepend">
-              <Label for="username">
-                <InputGroupText>Username</InputGroupText>
-              </Label>
-            </InputGroupAddon>
+//           <InputGroup>
+//             <InputGroupAddon addonType="prepend">
+//               <Label for="username">
+//                 <InputGroupText>Username</InputGroupText>
+//               </Label>
+//             </InputGroupAddon>
 
-            <Input
-              id="username"
-              name="username"
-              placeholder="choose your username"
-              value={fdata.username}
-              onChange={onChange}
-            />
+//             <Input
+//               id="username"
+//               name="username"
+//               placeholder="choose your username"
+//               value={fdata.username}
+//               onChange={onChange}
+//             />
 
-            {errorState.username.length > 0 ? (
-              <Alert color="danger">{errorState.username}</Alert>
-            ) : null}
-          </InputGroup>
+//             {errorState.username.length > 0 ? (
+//               <Alert color="danger">{errorState.username}</Alert>
+//             ) : null}
+//           </InputGroup>
 
-          <br />
+//           <br />
 
-          <FormGroup>
-            <Label for="email">Email</Label>
+//           <FormGroup>
+//             <Label for="email">Email</Label>
 
-            <Input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="email address"
-              value={fdata.email}
-              onChange={onChange}
-            />
+//             <Input
+//               type="email"
+//               id="email"
+//               name="email"
+//               placeholder="email address"
+//               value={fdata.email}
+//               onChange={onChange}
+//             />
 
-            {errorState.email.length > 0 ? (
-              <Alert color="danger">{errorState.email}</Alert>
-            ) : null}
-          </FormGroup>
+//             {errorState.email.length > 0 ? (
+//               <Alert color="danger">{errorState.email}</Alert>
+//             ) : null}
+//           </FormGroup>
 
-          <FormGroup>
-            <Label for="password">Password</Label>
+//           <FormGroup>
+//             <Label for="password">Password</Label>
 
-            <Input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="create password"
-              value={fdata.password}
-              onChange={onChange}
-            />
+//             <Input
+//               type="password"
+//               id="password"
+//               name="password"
+//               placeholder="create password"
+//               value={fdata.password}
+//               onChange={onChange}
+//             />
 
-            {errorState.password.length > 0 ? (
-              <Alert color="danger">{errorState.password}</Alert>
-            ) : null}
-          </FormGroup>
+//             {errorState.password.length > 0 ? (
+//               <Alert color="danger">{errorState.password}</Alert>
+//             ) : null}
+//           </FormGroup>
 
-          <FormGroup>
-            <Label for="passwordConfirmation">Password confirmation</Label>
+//           <FormGroup>
+//             <Label for="passwordConfirmation">Password confirmation</Label>
 
-            <Input
-              type="passwordConfirmation"
-              id="passwordConfirmation"
-              name="passwordConfirmation"
-              placeholder="confirm password"
-              value={fdata.passwordConfirmation}
-              onChange={onChange}
-            />
+//             <Input
+//               type="passwordConfirmation"
+//               id="passwordConfirmation"
+//               name="passwordConfirmation"
+//               placeholder="confirm password"
+//               value={fdata.passwordConfirmation}
+//               onChange={onChange}
+//             />
 
-            {errorState.passwordConfirmation.length > 0 ? (
-              <Alert color="danger">{errorState.passwordConfirmation}</Alert>
-            ) : null}
-          </FormGroup>
+//             {errorState.passwordConfirmation.length > 0 ? (
+//               <Alert color="danger">{errorState.passwordConfirmation}</Alert>
+//             ) : null}
+//           </FormGroup>
 
-          <Link to="/landingpage">
-            <Button disabled={greyButton}>Submit</Button>
-          </Link>
-        </Form>
+//           <Link to="/landingpage">
+//             <Button disabled={greyButton}>Submit</Button>
+//           </Link>
+//         </Form>
 
-        <Switch>
-          <Route path="/dashboard">
-            <Dashboard />
-          </Route>
+//         <Switch>
+//           <Route path="/dashboard">
+//             <Dashboard />
+//           </Route>
 
-          <Route path="/userlogin">
-            <LogIn />
-          </Route>
+//           <Route path="/userlogin">
+//             <LogIn />
+//           </Route>
 
-          <Route path="/landingpage">
-            <LandingPage />
-          </Route>
-        </Switch>
+//           <Route path="/landingpage">
+//             <LandingPage />
+//           </Route>
+//         </Switch>
 
-        <Link to="/userlogin">
-          <p>Already have an account? Click here to Sign in.</p>
-        </Link>
-      </header>
-    </div>
-  );
-}
+//         <Link to="/userlogin">
+//           <p>Already have an account? Click here to Sign in.</p>
+//         </Link>
+//       </header>
+//     </div>
+//   );
+// }
 
-export default Registration;
+// export default Registration;

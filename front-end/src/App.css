@@ -1,11 +1,10 @@
 .App {
   text-align: center;
-
 }
 
 img {
-  height: 40vmin;
-  margin-top: 5%;
+  height: 20vmin;
+ 
   pointer-events: none;
 }
 
@@ -15,7 +14,7 @@ img {
   }
 } */
 
-.App-header {
+/* .App-header {
   background-color: #65d6d7;
 
   min-height: 70vh;
@@ -31,9 +30,8 @@ img {
   font-size: calc(10px + 2vmin);
 
   color: #0a3749;
-  
-  
-}
+} */
+
 
 .App-link {
   color: #61dafb;
@@ -48,3 +46,65 @@ img {
     transform: rotate(360deg);
   }
 }
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: solid black;
+  padding-bottom: 2%;
+  
+
+}
+
+nav h3 {
+  font-size: 0.8rem;
+  line-height: 6rem;
+  text-transform: uppercase;
+  /* border: 5px; */
+  color: #222222;
+}
+
+
+
+
+nav h3:hover {
+
+  color: #65D6D7;
+  /* text-decoration: none; */
+
+}
+
+
+.loginForm{
+  display: flex;
+  flex-direction: column;
+  padding: 2%;
+  margin-top: 5%;
+}
+
+
+
+.btn:hover{
+  background-color: #65D6D7;
+}
+
+/* REGISTER FORM STYLING */
+
+.registerForm{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20%;
+  margin-left: 40%;
+; 
+}
+
+/* .register{
+  border: solid black;
+
+} */
+.regTitle{
+  text-align: center;
+  margin-top: 7%; 
+}
+
