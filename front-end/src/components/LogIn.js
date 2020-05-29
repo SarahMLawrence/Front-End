@@ -1,57 +1,98 @@
-import React from 'react';
-import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom';
-import Dashboard from './Dashboard';
-import Registration from './Registration';
-import { Button , Form, FormGroup, Label, Input } from 'reactstrap';
-import '../App.css';
+//==========//
+//  IMPORTS //
+//==========//
+import React, { useState } from "react";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { useHistory } from "react-router-dom";
+import { Form, FormGroup, Input, Button } from "reactstrap";
 
-function LogIn () {
-  return (
-    <Router>
-    <div className="App">
-      <header className="App-header">
-       
+const Login = () => {
+  const [userInfo, setUserInfo] = useState({
+    username: "",
+    password: "",
+  });
+  const [isFetching, setIsFetching] = useState(false);
+  const [error, setError] = useState("");
 
-      <Form inline>
-      <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-        <Label for="exampleEmail" className="mr-sm-2">Log in with email address</Label>
-        <Input type="email" name="email" id="exampleEmail" placeholder="enter email" />
-      </FormGroup>
-      <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-        <Label for="examplePassword" className="mr-sm-2">Password</Label>
-        <Input type="password" name="password" id="examplePassword" placeholder="enter password" />
-      </FormGroup>
-      <Button>Submit</Button>
-    </Form>
- 
+  const handleChanges = (e) => {
+    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+    console.log("New credentials from Login", userInfo);
+  };
 
+  let history = useHistory();
+  const login = (e) => {
+    e.preventDefault();
+    setIsFetching(true);
 
-       <Button color outline="primary"> <Link to="/registration">Don't have an account? Sign up</Link> </Button>
-       
+    axiosWithAuth()
+      .post("/auth/login", userInfo)
+      .then((res) => {
+        console.log(res);
+        if (res.data.token) {
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("username", res.data.userInfo.username);
+          localStorage.setItem("password", userInfo.password);
+          localStorage.setItem("password", userInfo.password);
           
-          <Switch>
-            <Route exact path="/">
-              <Dashboard />
-            </Route>    
-            <Route path="/registration">
-              <Registration />
-            </Route>
-        </Switch>
+          // history.push("/postpage");
+        } else {
+          setError("Your login was unsuccessfull");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
 
-        {/* <span> Still not sure?  While you're here, why not &nbsp; 
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          learn this is the Log in page
-        </a>
-         </span> */}
-      </header>
+  return (
+    <div>
+      <div className="login">
+        <div className="form">
+          <div className="FormForm">
+            <Form inline onSubmit={login} className="loginForm">
+              <h2>Login </h2>
+              <FormGroup
+                className="mb-2 mr-sm-2 mb-sm-0"
+                style={{ padding: "1%" }}
+              >
+                <Input
+                  type="text"
+                  name="username"
+                  placeholder="USERNAME"
+                  value={userInfo.username}
+                  onChange={handleChanges}
+                  required
+                />
+              </FormGroup>
+              <FormGroup
+                className="mb-2 mr-sm-2 mb-sm-0"
+                style={{ padding: "1%" }}
+              >
+                <Input
+                  className="input"
+                  type="password"
+                  name="password"
+                  placeholder="PASSWORD"
+                  value={userInfo.password}
+                  onChange={handleChanges}
+                  required
+                />
+              </FormGroup>
+              <Button
+                onClick={() => {
+                  history.push("/postpage");
+                }}
+                className="btn"
+                style={{ padding: "%" }}
+              >
+                Log in
+              </Button>
+            </Form>
+            <p>{isFetching ? "Loading..." : null}</p>
+            <p>{error ? error : null}</p>
+          </div>
+        </div>
+      </div>
     </div>
-    </Router>
   );
-}
+};
 
-export default LogIn;
+export default Login;
