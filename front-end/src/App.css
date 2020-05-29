@@ -150,3 +150,16 @@ nav h3:hover {
     margin: 0;
     background: #adceed;
   }
+
+  /* Post styling */
+  .card{
+    font-family: monospace;
+    text-align: left;
+    background-color: tan;
+    width: 35%;
+    margin-bottom: 2%;
+    margin-left: 34%;
+  }
+
+ 
+ 

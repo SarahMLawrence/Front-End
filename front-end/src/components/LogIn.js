@@ -4,7 +4,6 @@
 import React, { useState } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { useHistory } from "react-router-dom";
-
 import { Form, FormGroup, Input, Button } from "reactstrap";
 
 const Login = () => {
@@ -34,7 +33,8 @@ const Login = () => {
           localStorage.setItem("username", res.data.userInfo.username);
           localStorage.setItem("password", userInfo.password);
           localStorage.setItem("password", userInfo.password);
-          history.push("/");
+          
+          // history.push("/postpage");
         } else {
           setError("Your login was unsuccessfull");
         }
@@ -47,12 +47,13 @@ const Login = () => {
       <div className="login">
         <div className="form">
           <div className="FormForm">
-            
             <Form inline onSubmit={login} className="loginForm">
-           <h2>Login </h2>
-              <FormGroup className="mb-2 mr-sm-2 mb-sm-0"  style={{padding: '1%'}}>
+              <h2>Login </h2>
+              <FormGroup
+                className="mb-2 mr-sm-2 mb-sm-0"
+                style={{ padding: "1%" }}
+              >
                 <Input
-               
                   type="text"
                   name="username"
                   placeholder="USERNAME"
@@ -61,18 +62,29 @@ const Login = () => {
                   required
                 />
               </FormGroup>
-              <FormGroup className="mb-2 mr-sm-2 mb-sm-0"  style={{padding: '1%'}}>
+              <FormGroup
+                className="mb-2 mr-sm-2 mb-sm-0"
+                style={{ padding: "1%" }}
+              >
                 <Input
-                className="input"
+                  className="input"
                   type="password"
                   name="password"
-                  placeholder="Password"
+                  placeholder="PASSWORD"
                   value={userInfo.password}
                   onChange={handleChanges}
                   required
                 />
               </FormGroup>
-              <Button  className="btn" style={{padding: '%'}}>Log in</Button>
+              <Button
+                onClick={() => {
+                  history.push("/postpage");
+                }}
+                className="btn"
+                style={{ padding: "%" }}
+              >
+                Log in
+              </Button>
             </Form>
             <p>{isFetching ? "Loading..." : null}</p>
             <p>{error ? error : null}</p>

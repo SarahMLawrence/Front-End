@@ -4,6 +4,19 @@
 import React, { useState, useEffect } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
+import {
+  Card,
+  CardImg,
+  CardText,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  TabContent,
+} from "reactstrap";
+
+//====================//
+//  SET INITIAL POST  //
+//====================//
 const initialPost = {
   id: "",
   username: "",
@@ -25,7 +38,9 @@ const PostList = ({ props, posts, updatePost }) => {
     setPostToEdit(id);
   };
 
-  //PUT REQUEST -save
+  //=========================//
+  //   PUT REQUEST - SAVE    //
+  //=========================//
   const saveEditPost = (e) => {
     e.preventDefault();
     axiosWithAuth()
@@ -39,7 +54,13 @@ const PostList = ({ props, posts, updatePost }) => {
       });
   };
 
-  //Delete
+  //=========================//
+  // DELETE REQUEST - DELETE //
+  //=========================//
+  const deletePost = (post) => {
+    axiosWithAuth().delete(`/posts/${post.id}`);
+    props.history.push("/postpage");
+  };
 
   //Add
   const addPost = (e) => {
@@ -52,63 +73,62 @@ const PostList = ({ props, posts, updatePost }) => {
   };
 
   return (
-    // <div>
-    //   <p>Posts</p>
-    //   <ul>
-    //     {posts.map((post) => {
-    //       <li key={post.id}>
-    //         <h1>{post.username}</h1>
-    //       </li>;
-    //     })}
-    //   </ul>
-    // </div>
+    <div className="App">
+      <header className="App-header">
+        <div>
+          {posts.map((element, key) => {
+            console.log(element);
 
-    <div className="colors-wrap">
-      <p>Posts</p>
-      <ul>
-        {posts.map((posts) => (
-          <li key={posts.content} onClick={() => postToEdit(posts.content)}>
-            {/* <span>
-              <h1>{posts.id}</h1>
-              <h1>{posts.username}</h1>
-            </span> */}
+            return (
+              <Card className="card">
+                {/* <CardBody className="body">
+                    <CardTitle>{element.id}</CardTitle>
+                  </CardBody> */}
 
-            <div>
-              <h1>{posts.id}</h1>
-              <h1>{posts.username}</h1>
-              <h1>{posts.content}</h1>
-              <h1>{posts.likes}</h1>
-              <img>{posts.img}</img>
+                <CardBody>
+                  <CardTitle>{element.id}</CardTitle>
+                  <CardSubtitle>{element.username}</CardSubtitle>
+                  <CardText key={element.id}>
+                    {element.content} <br></br>Likes: {element.likes}
+                  </CardText>
 
-              <div className="button-row">
-                <button type="submit">save</button>
+                  {/* <Link to="#">{element.likes}</Link>
 
-                <button onClick={() => setEditing(false)}>cancel</button>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-{/* 
-      const [editing, setEditing] = useState(false);
-  const [postToEdit, setPostToEdit] = useState(initialPost);
-  const [postToAdd, setAddPost] = useState(initialPost); */}
-      <div className="addPost">
-        <label>
-          New Post:
-          <input
-            onChange={(e) =>
-              setAddPost({ ...postToAdd, content: e.target.value })
-            }
-            value={postToAdd.content}
-          />
-        </label>
+                    <Link to="#">Comment </Link> */}
+                </CardBody>
+              </Card>
+            );
+          })}
+          <div>
+            <label>
+              content:
+              <input
+                onChange={(e) =>
+                  setAddPost({ ...postToAdd, element: e.target.value })
+                }
+                value={postToAdd.element}
+              />
+            </label>
+            <button className="addBtn" onClick={addPost}>
+              Add Post
+            </button>
+          </div>
+        </div>
+      </header>
 
+      {/* <Switch>
+          <Route path="/userlogin">
+            <LogIn />
+          </Route>
 
-        <button className="addBtn" onClick={addPost}>
-          Add Post
-        </button>
-      </div>
+          <Route path="/registration">
+            <Registration />
+          </Route>
+
+          <Route path="/dashboard">
+            <Dashboard />
+          </Route>
+        </Switch> */}
     </div>
   );
 };

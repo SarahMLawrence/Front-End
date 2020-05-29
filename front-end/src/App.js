@@ -52,64 +52,17 @@ import SlideShow from "./components/SlideShow";
 import Register from "./components/Register";
 
 import LandingPage from "./components/LandingPage";
-
 import PostPage from "./components/PostPage";
 
 import "./App.css";
 
 import logo from "./images/how-to-logo-small.png";
 
-import { Jumbotron } from "reactstrap";
 import PrivateRoute from "./components/PrivateRoute";
+
 
 function App() {
   return (
-    // <Router>
-    //   <div className="App">
-    //     <header className="App-header">
-    //       <Jumbotron>
-    //         <Link to="/dashboard">
-    //           <img src={logo} className="App" alt="logo" />
-    //         </Link>
-
-    //         <h1>
-    //           {" "}
-    //           <br /> Ready to build a better you?
-    //         </h1>
-    //       </Jumbotron>
-
-    //       <Link to="/postpage">
-    //           <h3>See Posts</h3>
-    //           </Link>
-
-    //       <Switch>
-    //         <Route path="/userlogin">
-    //           <Login />
-    //         </Route>
-
-    //         <Route path="/register">
-    //           {/* <Registration /> */}
-    //           <Register />
-    //         </Route>
-
-    //         <Route path="/dashboard">
-    //           <Dashboard />
-    //         </Route>
-
-    //         <Route path="/landingpage">
-    //           <LandingPage />
-    //         </Route>
-
-    //         <PrivateRoute
-    //         exact
-    //         path="/postpage"
-    //         component={PostPage}
-    //          />
-    //       </Switch>
-    //     </header>
-    //   </div>
-    // </Router>
-
     <Router>
       <div>
         <div>
@@ -123,15 +76,16 @@ function App() {
                 <Link to="/register">
                   <h3>Register</h3>
                 </Link>
-                <Link to="/postpage">
+                {/* <Link to="/postpage">
                   <h3>See Posts</h3>
-                </Link>
+                </Link> */}
               </nav>
 
               <SlideShow />
               <div className="forms">
               <Route path="/userlogin" component={Login} />
             <Route path="/register" component={Register} />
+            {/* <Route path="/postpage" component={PostPage}/> */}
             </div>
 {/*  
 
@@ -140,12 +94,11 @@ function App() {
 
           
           </div>
-         
-          <div>
+<div>
             <Switch>
               <PrivateRoute exact path="/postpage" component={PostPage} />
             </Switch>
-          </div>
+          </div> 
         </div>
       </div>
     </Router>

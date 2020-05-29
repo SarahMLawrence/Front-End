@@ -3,7 +3,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import { Jumbotron, Container, Row, Col } from "reactstrap";
-import Register from './Register';
+import Register from "./Register";
 // import Registration from "./Registration";
 
 import LogIn from "./Login";
@@ -37,7 +37,7 @@ function Dashboard() {
             </Route>
 
             <Route path="/register">
-              <Register/>
+              <Register />
             </Route>
           </Switch>
         </header>
